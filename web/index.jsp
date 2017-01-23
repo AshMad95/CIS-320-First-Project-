@@ -11,7 +11,6 @@
     <title>Ashtyne Madsen</title>
   </head>
   <body>
-  <h1>My Sample Page2</h1>
-  <p>This is great!</p>
+  <h1>Assingment 2</h1>
   </body>
 </html>
