@@ -1,5 +1,8 @@
 package edu.simpson.madsen;
 
+/**
+ * Created by taylor.gehrls on 1/24/2017.
+ */
 import javax.naming.Context;
 import java.sql.Connection;
 import java.util.logging.Level;
