@@ -56,7 +56,19 @@ function showDialogAdd() {
     $('#myModal').modal('show');
 }
 
+function validateFirstName(event) {
+    var v1 = $('#firstName').val();
+    var reg = (/[a-zA-Z] + ('[a-zA-Z])?[a-zA-Z]*)){30}$/;
+
+    if (reg.test(v1)) {
+        console.log('valid')
+    } else {
+        console.log('invalid')
+    }
+}
+
 function saveChangesWords() {
+    validateFirstName()
     console.log("The changes were saved!");
 }
 
