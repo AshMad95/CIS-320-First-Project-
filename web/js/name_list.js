@@ -2,6 +2,8 @@
  * Created by ashtyne.madsen on 2/2/2017.
  */
 
+var valid_form = true
+
 // Main Javascript File
 function updateTable() {
     // Here's where your code is going to go.
@@ -82,6 +84,23 @@ function showDialogAdd() {
     $('#myModal').modal('show');
 }
 
+function jqueryPostButtonAction() {
+
+    var url = "api/name_list_servlet";
+    var idValue = $("#id").val();
+    var firstNameValue = $("#firstName").val()
+    var lastNameValue = $("#lastName").val()
+    var emailValue = $("#email").val()
+    var phoneValue = $("#phone").val()
+    var birthdayValue = $("#birthday").val()
+    var dataToServer = { id : idValue, firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
+
+    $.post(url, dataToServer, function (dataFromServer) {
+        console.log("Finished calling servlet.");
+        console.log(dataFromServer);
+    });
+}
+
 function validation(event) {
     var idValidate = $('#id').val();
     var reg = /^[0-9]{1,10}$/;
@@ -111,6 +130,7 @@ function validation(event) {
         // Put in the field used by screen readers
         $('idStatus').val("(error)");
         console.log('Invalid ID')
+        valid_form = false
     }
 
 
@@ -142,6 +162,7 @@ function validation(event) {
         // Put in the field used by screen readers
         $('firstNameStatus').val("(error)");
         console.log('Invalid First Name')
+        valid_form = false
     }
 
 
@@ -173,6 +194,7 @@ function validation(event) {
         // Put in the field used by screen readers
         $('lastNameStatus').val("(error)");
         console.log('Invalid Last Name')
+        valid_form = false
     }
 
 
@@ -204,6 +226,7 @@ function validation(event) {
         // Put in the field used by screen readers
         $('emailStatus').val("(error)");
         console.log('Invalid Email')
+        valid_form = false
     }
 
     var phoneValidate = $('#phone').val();
@@ -234,6 +257,7 @@ function validation(event) {
         // Put in the field used by screen readers
         $('phoneStatus').val("(error)");
         console.log('Invalid Phone Number')
+        valid_form = false
     }
 
 
@@ -265,6 +289,15 @@ function validation(event) {
         // Put in the field used by screen readers
         $('birthdayStatus').val("(error)");
         console.log('Invalid Birthday')
+        valid_form = false
+    }
+
+    if (valid_form == true) {
+        console.log(valid_form)
+        jqueryPostButtonAction()
+    }
+    else {
+        console.log(valid_form)
     }
 }
 
