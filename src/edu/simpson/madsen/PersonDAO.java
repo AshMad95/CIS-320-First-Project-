@@ -93,11 +93,17 @@ public class PersonDAO {
         try {
             conn = DBHelper.getConnection();
 
-            String sql = "INSERT INTO `cis320`.`person` (`first`, `last`, `email`, `phone`, `birthday`) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO person (first, last, email, phone, birthday) VALUES (?, ?, ?, ?, ?)";
 
             stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, person.getFirst());
+            stmt.setString(2, person.getLast());
+            stmt.setString(3, person.getEmail());
+            stmt.setString(4, person.getPhone());
+            stmt.setString(5, person.getBirthday());
+
+            stmt.executeUpdate();
         }
 
         catch (SQLException se) {

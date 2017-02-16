@@ -28,6 +28,14 @@ public class NameListEdit extends HttpServlet {
         String phone = request.getParameter("phone");
         String birthday = request.getParameter("birthday");
 
+        Person person = new Person();
+        person.setFirst(firstName);
+        person.setLast(lastName);
+        person.setEmail(email);
+        person.setPhone(phone);
+        person.setBirthday(birthday);
+        PersonDAO.addPeople(person);
+
         // Just print the data out to confirm we got it.
         out.println("id = '"+id+"'");
         out.println("firstName = '"+firstName+"'");

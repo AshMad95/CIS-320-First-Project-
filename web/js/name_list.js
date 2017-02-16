@@ -5,6 +5,10 @@
 var valid_form = true;
 
 // Main Javascript File
+function clearTable() {
+    $("#datatable tbody tr").empty();
+}
+
 function updateTable() {
     // Here's where your code is going to go.
     var url = "api/name_list_get";
@@ -85,20 +89,29 @@ function showDialogAdd() {
 }
 
 function jqueryPostButtonAction() {
+    validation();
+    if (valid_form == true) {
+        console.log(valid_form);
+        var url = "api/name_list_edit";
+        var idValue = $("#id").val();
+        var firstNameValue = $("#firstName").val()
+        var lastNameValue = $("#lastName").val()
+        var emailValue = $("#email").val()
+        var phoneValue = $("#phone").val()
+        var birthdayValue = $("#birthday").val()
+        var dataToServer = { id : idValue, firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
 
-    var url = "api/name_list_edit";
-    var idValue = $("#id").val();
-    var firstNameValue = $("#firstName").val()
-    var lastNameValue = $("#lastName").val()
-    var emailValue = $("#email").val()
-    var phoneValue = $("#phone").val()
-    var birthdayValue = $("#birthday").val()
-    var dataToServer = { id : idValue, firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
+        $.post(url, dataToServer, function (dataFromServer) {
+            console.log("Finished calling servlet.");
+            console.log(dataFromServer);
+        });
+    }
+}
 
-    $.post(url, dataToServer, function (dataFromServer) {
-        console.log("Finished calling servlet.");
-        console.log(dataFromServer);
-    });
+function saveChangesButton() {
+    jqueryPostButtonAction()
+    clearTable()
+    updateTable()
 }
 
 function validation() {
@@ -292,18 +305,10 @@ function validation() {
         valid_form = false
     }
 
-    if (valid_form == true) {
-        console.log(valid_form);
-        jqueryPostButtonAction()
+    if (valid_form == false)
+    {
+        console.log("Invalid");
     }
-    else {
-        console.log(valid_form)
-    }
-}
-
-function saveChangesWords() {
-    validation();
-    console.log("The changes were saved!");
 }
 
 // Call your code.
@@ -314,5 +319,5 @@ updateTable();
 var addItemButton = $('#addItem');
 addItemButton.on("click", showDialogAdd);
 
-var saveChangesButton = $('#saveChanges');
-saveChangesButton.on("click", saveChangesWords);
+var savesButton = $('#saveChanges');
+savesButton.on("click", saveChangesButton());
