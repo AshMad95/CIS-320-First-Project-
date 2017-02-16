@@ -1,8 +1,8 @@
 /**
- * Created by ashtyne.madsen on 2/2/2017.
+ * Created by ashtyne.madsen on 2/2/2017
  */
 
-var valid_form = true
+var valid_form = true;
 
 // Main Javascript File
 function updateTable() {
@@ -86,7 +86,7 @@ function showDialogAdd() {
 
 function jqueryPostButtonAction() {
 
-    var url = "api/name_list_servlet";
+    var url = "api/name_list_edit";
     var idValue = $("#id").val();
     var firstNameValue = $("#firstName").val()
     var lastNameValue = $("#lastName").val()
@@ -101,11 +101,11 @@ function jqueryPostButtonAction() {
     });
 }
 
-function validation(event) {
+function validation() {
     var idValidate = $('#id').val();
-    var reg = /^[0-9]{1,10}$/;
+    var idreg = /^[0-9]{1,10}$/;
 
-    if (reg.test(idValidate)) {
+    if (idreg.test(idValidate)) {
         // Set style for outline of form field
         $('#idDiv').removeClass("has-error");
         $('#idDiv').addClass("has-success");
@@ -129,15 +129,15 @@ function validation(event) {
 
         // Put in the field used by screen readers
         $('idStatus').val("(error)");
-        console.log('Invalid ID')
+        console.log('Invalid ID');
         valid_form = false
     }
 
 
     var firstNameValidate = $('#firstName').val();
-    var reg = /^[a-zA-Z' -]{1,30}$/;
+    var firstNamereg = /^[a-zA-Z' -]{1,30}$/;
 
-    if (reg.test(firstNameValidate)) {
+    if (firstNamereg.test(firstNameValidate)) {
         // Set style for outline of form field
         $('#firstNameDiv').removeClass("has-error");
         $('#firstNameDiv').addClass("has-success");
@@ -167,9 +167,9 @@ function validation(event) {
 
 
     var lastNameValidate = $('#lastName').val();
-    var reg = /^[a-zA-Z' -]{1,30}$/;
+    var lastNamereg = /^[a-zA-Z' -]{1,30}$/;
 
-    if (reg.test(lastNameValidate)) {
+    if (lastNamereg.test(lastNameValidate)) {
         // Set style for outline of form field
         $('#lastNameDiv').removeClass("has-error");
         $('#lastNameDiv').addClass("has-success");
@@ -199,9 +199,9 @@ function validation(event) {
 
 
     var emailValidate = $('#email').val();
-    var reg = /^[a-zA-Z0-9_-]{1,30}@[a-zA-Z]{1,30}\.[a-zA-Z]{1,4}$/;
+    var emailreg = /^[a-zA-Z0-9_-]{1,30}@[a-zA-Z]{1,30}\.[a-zA-Z]{1,4}$/;
 
-    if (reg.test(emailValidate)) {
+    if (emailreg.test(emailValidate)) {
         // Set style for outline of form field
         $('#emailDiv').removeClass("has-error");
         $('#emailDiv').addClass("has-success");
@@ -230,9 +230,9 @@ function validation(event) {
     }
 
     var phoneValidate = $('#phone').val();
-    var reg = /^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$/;
+    var phonereg = /^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$/;
 
-    if (reg.test(phoneValidate)) {
+    if (phonereg.test(phoneValidate)) {
         // Set style for outline of form field
         $('#phoneDiv').removeClass("has-error");
         $('#phoneDiv').addClass("has-success");
@@ -262,9 +262,9 @@ function validation(event) {
 
 
     var birthdayValidate = $('#birthday').val();
-    var reg = /^(19|20)[1-9]{2}[- /](0[1-9]|1[012])[- /](0[1-9]|[12][0-9]|3[01])$/;
+    var birthdayreg = /^(19|20)[1-9]{2}[- /](0[1-9]|1[012])[- /](0[1-9]|[12][0-9]|3[01])$/;
 
-    if (reg.test(birthdayValidate)) {
+    if (birthdayreg.test(birthdayValidate)) {
         // Set style for outline of form field
         $('#birthdayDiv').removeClass("has-error");
         $('#birthdayDiv').addClass("has-success");
@@ -288,12 +288,12 @@ function validation(event) {
 
         // Put in the field used by screen readers
         $('birthdayStatus').val("(error)");
-        console.log('Invalid Birthday')
+        console.log('Invalid Birthday');
         valid_form = false
     }
 
     if (valid_form == true) {
-        console.log(valid_form)
+        console.log(valid_form);
         jqueryPostButtonAction()
     }
     else {
@@ -302,7 +302,7 @@ function validation(event) {
 }
 
 function saveChangesWords() {
-    validation()
+    validation();
     console.log("The changes were saved!");
 }
 
@@ -315,4 +315,4 @@ var addItemButton = $('#addItem');
 addItemButton.on("click", showDialogAdd);
 
 var saveChangesButton = $('#saveChanges');
-saveChangesButton.on("click", saveChangesWords)
+saveChangesButton.on("click", saveChangesWords);

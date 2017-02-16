@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
- * Created by ashtyne.madsen on 1/26/2017.
+ * Created by ashtyne.madsen on 1/26/2017
  */
 public class PersonDAO {
     /**
@@ -81,5 +81,37 @@ public class PersonDAO {
         }
         // Done! Return the results
         return list;
+    }
+
+    public static void addPeople(Person person) {
+        final Logger log = Logger.getLogger(PersonDAO.class.getName());
+        log.log(Level.FINE, "Add people");
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DBHelper.getConnection();
+
+            String sql = "INSERT INTO `cis320`.`person` (`first`, `last`, `email`, `phone`, `birthday`) VALUES (?, ?, ?, ?, ?)";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, person.getFirst());
+        }
+
+        catch (SQLException se) {
+            log.log(Level.SEVERE, "SQL Error", se );
+        }
+
+        catch (Exception e) {
+            log.log(Level.SEVERE, "Error", e );
+        }
+
+        finally {
+        // Ok, close our result set, statement, and connection
+            try { stmt.close(); } catch (Exception e) { log.log(Level.SEVERE, "Error", e ); }
+            try { conn.close(); } catch (Exception e) { log.log(Level.SEVERE, "Error", e ); }
+    }
     }
 }
