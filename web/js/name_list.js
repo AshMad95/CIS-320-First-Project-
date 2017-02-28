@@ -1,14 +1,12 @@
 /**
  * Created by ashtyne.madsen on 2/2/2017
  */
-
-var valid_form = true;
-
-// Main Javascript File
+// This clears the table
 function clearTable() {
     $("#datatable tbody tr").empty();
 }
 
+//This updates the table to the current information in the database
 function updateTable() {
     // Here's where your code is going to go.
     var url = "api/name_list_get";
@@ -37,11 +35,10 @@ function updateTable() {
             $('#datatable tbody').append(row);
         }
         console.log("Done");
-
     })
 }
 
-// Called when "Add Item" button is clicked
+// This make the form show up when Add Item is clicked
 function showDialogAdd() {
 
     // Print that we got here
@@ -51,7 +48,6 @@ function showDialogAdd() {
     // Otherwise we'll keep values from when we last
     // opened or hit edit.
     // I'm getting it started, you can finish.
-    $('#id').val("");
     $('#firstName').val("");
     $('#lastName').val("");
     $('#email').val("");
@@ -59,10 +55,6 @@ function showDialogAdd() {
     $('#birthday').val("");
 
     // Remove style for outline of form field
-    $('#idDiv').removeClass("has-error");
-    $('#idGlyph').removeClass("glyphicon-remove");
-    $('#idDiv').removeClass("has-success");
-    $('#idGlyph').removeClass("glyphicon-ok");
     $('#firstNameDiv').removeClass("has-error");
     $('#firstNameGlyph').removeClass("glyphicon-remove");
     $('#firstNameDiv').removeClass("has-success");
@@ -89,66 +81,36 @@ function showDialogAdd() {
 }
 
 function jqueryPostButtonAction() {
-    validation();
+    var valid_form = validation();
     if (valid_form == true) {
         console.log(valid_form);
         var url = "api/name_list_edit";
-        var idValue = $("#id").val();
         var firstNameValue = $("#firstName").val()
         var lastNameValue = $("#lastName").val()
         var emailValue = $("#email").val()
         var phoneValue = $("#phone").val()
         var birthdayValue = $("#birthday").val()
-        var dataToServer = { id : idValue, firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
+        var dataToServer = {firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
 
         $.post(url, dataToServer, function (dataFromServer) {
             console.log("Finished calling servlet.");
+            clearTable();
+            updateTable();
+            $('#myModal').modal('hide');
             console.log(dataFromServer);
         });
     }
 }
 
 function saveChangesButton() {
-    jqueryPostButtonAction()
-    clearTable()
-    updateTable()
+    jqueryPostButtonAction();
 }
 
 function validation() {
-    var idValidate = $('#id').val();
-    var idreg = /^[0-9]{1,10}$/;
-
-    if (idreg.test(idValidate)) {
-        // Set style for outline of form field
-        $('#idDiv').removeClass("has-error");
-        $('#idDiv').addClass("has-success");
-
-        // Set the icon for the form field
-        $('#idGlyph').removeClass("glyphicon-remove");
-        $('#idGlyph').addClass("glyphicon-ok");
-
-        // Put in the field used by screen readers
-        $('idStatus').val("(success)");
-        console.log('Valid ID')
-    }
-    else {
-        // Set style for outline of form field
-        $('#idDiv').removeClass("has-success");
-        $('#idDiv').addClass("has-error");
-
-        // Set the icon for the form field
-        $('#idGlyph').removeClass("glyphicon-ok");
-        $('#idGlyph').addClass("glyphicon-remove");
-
-        // Put in the field used by screen readers
-        $('idStatus').val("(error)");
-        console.log('Invalid ID');
-        valid_form = false
-    }
-
-
     var firstNameValidate = $('#firstName').val();
     var firstNamereg = /^[a-zA-Z' -]{1,30}$/;
+
+    var valid_form = true;
 
     if (firstNamereg.test(firstNameValidate)) {
         // Set style for outline of form field
@@ -212,7 +174,7 @@ function validation() {
 
 
     var emailValidate = $('#email').val();
-    var emailreg = /^[a-zA-Z0-9_-]{1,30}@[a-zA-Z]{1,30}\.[a-zA-Z]{1,4}$/;
+    var emailreg = /^[a-zA-Z0-9_.-]{1,30}@[a-zA-Z.]{1,30}\.[a-zA-Z]{1,4}$/;
 
     if (emailreg.test(emailValidate)) {
         // Set style for outline of form field
@@ -243,7 +205,7 @@ function validation() {
     }
 
     var phoneValidate = $('#phone').val();
-    var phonereg = /^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$/;
+    var phonereg = /^[0-9]{10}$/;
 
     if (phonereg.test(phoneValidate)) {
         // Set style for outline of form field
@@ -309,6 +271,7 @@ function validation() {
     {
         console.log("Invalid");
     }
+    return valid_form;
 }
 
 // Call your code.
@@ -320,4 +283,4 @@ var addItemButton = $('#addItem');
 addItemButton.on("click", showDialogAdd);
 
 var savesButton = $('#saveChanges');
-savesButton.on("click", saveChangesButton());
+savesButton.on("click", saveChangesButton);

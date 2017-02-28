@@ -7,12 +7,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ashtyne.madsen on 2/16/2017
  */
 @WebServlet(name = "NameListEdit")
 public class NameListEdit extends HttpServlet {
+
+    private Pattern firstnameValidationPattern;
+    private Pattern lastnameValidationPattern;
+    private Pattern emailValidationPattern;
+    private Pattern phoneValidationPattern;
+    private Pattern birthdayValidationPattern;
+
+    public FormTestServlet() {
+        firstnameValidationPattern = Pattern.compile("^[a-zA-Z' -]{1,30}$");
+        lastnameValidationPattern = Pattern.compile("^[a-zA-Z' -]{1,30}$");
+        emailValidationPattern = Pattern.compile("^[a-zA-Z0-9_.-]{1,30}@[a-zA-Z.]{1,30}\\.[a-zA-Z]{1,4}$");
+        phoneValidationPattern = Pattern.compile("^[0-9]{10}$");
+        birthdayValidationPattern = Pattern.compile("^(19|20)[1-9]{2}[- /](0[1-9]|1[012])[- /](0[1-9]|[12][0-9]|3[01])$");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
@@ -43,5 +60,13 @@ public class NameListEdit extends HttpServlet {
         out.println("email = '"+email+"'");
         out.println("phone = '"+phone+"'");
         out.println("birthday = '"+birthday+"'");
+
+        Matcher m = firstnameValidationPattern.matcher(firstName);
+        if (m.find( )) {
+            out.println("Passed validation");
+        }
+        else {
+            out.println("Did not pass validation");
+        }
     }
 }
