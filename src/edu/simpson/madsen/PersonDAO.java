@@ -109,15 +109,45 @@ public class PersonDAO {
         catch (SQLException se) {
             log.log(Level.SEVERE, "SQL Error", se );
         }
-
         catch (Exception e) {
             log.log(Level.SEVERE, "Error", e );
         }
-
         finally {
         // Ok, close our result set, statement, and connection
             try { stmt.close(); } catch (Exception e) { log.log(Level.SEVERE, "Error", e ); }
             try { conn.close(); } catch (Exception e) { log.log(Level.SEVERE, "Error", e ); }
+        }
     }
+
+    public static void deletePeople(String id) {
+        final Logger log = Logger.getLogger(PersonDAO.class.getName());
+        log.log(Level.FINE, "Delete people");
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DBHelper.getConnection();
+
+            String sql = "DELETE FROM person WHERE id = ?";
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, id);
+
+            stmt.executeUpdate();
+        }
+
+        catch (SQLException se) {
+            log.log(Level.SEVERE, "SQL Error", se );
+        }
+        catch (Exception e) {
+            log.log(Level.SEVERE, "Error", e );
+        }
+        finally {
+            // Ok, close our result set, statement, and connection
+            try { stmt.close(); } catch (Exception e) { log.log(Level.SEVERE, "Error", e ); }
+            try { conn.close(); } catch (Exception e) { log.log(Level.SEVERE, "Error", e ); }
+        }
     }
 }

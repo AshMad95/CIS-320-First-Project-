@@ -31,10 +31,29 @@ function updateTable() {
             row += '<td>' + email + '</td>';
             row += '<td>' + phoneDash + '</td>';
             row += '<td>' + birthday + '</td>';
+            row += "<td><button type='button' name='delete' class='deleteButton btn' value='" + id + "'>Delete</button></td>";
             row += '</tr>';
             $('#datatable tbody').append(row);
         }
+        var buttons = $(".deleteButton");
+        buttons.on("click", deleteItem);
+
         console.log("Done");
+    })
+}
+
+function deleteItem(e) {
+    console.debug("Delete");
+    console.debug(e.target.value);
+    var url = "api/name_list_delete";
+    var idValue = e.target.value
+    var dataToServer = {id: idValue};
+
+    $.post(url, dataToServer, function (dataFromServer) {
+        console.log("Finished calling delete servlet");
+        clearTable();
+        updateTable();
+        console.log(dataFromServer);
     })
 }
 
@@ -93,7 +112,7 @@ function jqueryPostButtonAction() {
         var dataToServer = {firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
 
         $.post(url, dataToServer, function (dataFromServer) {
-            console.log("Finished calling servlet.");
+            console.log("Finished calling edit servlet.");
             clearTable();
             updateTable();
             $('#myModal').modal('hide');

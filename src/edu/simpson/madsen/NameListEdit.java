@@ -22,7 +22,7 @@ public class NameListEdit extends HttpServlet {
     private Pattern phoneValidationPattern;
     private Pattern birthdayValidationPattern;
 
-    public FormTestServlet() {
+    public NameListEdit() {
         firstnameValidationPattern = Pattern.compile("^[a-zA-Z' -]{1,30}$");
         lastnameValidationPattern = Pattern.compile("^[a-zA-Z' -]{1,30}$");
         emailValidationPattern = Pattern.compile("^[a-zA-Z0-9_.-]{1,30}@[a-zA-Z.]{1,30}\\.[a-zA-Z]{1,4}$");
@@ -45,14 +45,6 @@ public class NameListEdit extends HttpServlet {
         String phone = request.getParameter("phone");
         String birthday = request.getParameter("birthday");
 
-        Person person = new Person();
-        person.setFirst(firstName);
-        person.setLast(lastName);
-        person.setEmail(email);
-        person.setPhone(phone);
-        person.setBirthday(birthday);
-        PersonDAO.addPeople(person);
-
         // Just print the data out to confirm we got it.
         out.println("id = '"+id+"'");
         out.println("firstName = '"+firstName+"'");
@@ -61,9 +53,20 @@ public class NameListEdit extends HttpServlet {
         out.println("phone = '"+phone+"'");
         out.println("birthday = '"+birthday+"'");
 
-        Matcher m = firstnameValidationPattern.matcher(firstName);
-        if (m.find( )) {
+        Matcher firstM = firstnameValidationPattern.matcher(firstName);
+        Matcher lastM = lastnameValidationPattern.matcher(lastName);
+        Matcher emailM = emailValidationPattern.matcher(email);
+        Matcher phoneM = phoneValidationPattern.matcher(phone);
+        Matcher birthdayM = birthdayValidationPattern.matcher(birthday);
+        if (firstM.find( ) && lastM.find() && emailM.find() && phoneM.find() && birthdayM.find()) {
             out.println("Passed validation");
+            Person person = new Person();
+            person.setFirst(firstName);
+            person.setLast(lastName);
+            person.setEmail(email);
+            person.setPhone(phone);
+            person.setBirthday(birthday);
+            PersonDAO.addPeople(person);
         }
         else {
             out.println("Did not pass validation");
