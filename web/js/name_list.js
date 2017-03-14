@@ -21,7 +21,6 @@ function updateTable() {
             var lastName = json_result[i].last;
             var email = json_result[i].email;
             var phone = json_result[i].phone;
-            var phoneDash = phone.substr(0,3) + '-' + phone.substr(3,3) + '-' + phone.substr(6,4);
             var birthday = json_result[i].birthday;
 
             var row ='<tr>';
@@ -32,11 +31,15 @@ function updateTable() {
             row += '<td>' + phoneDash + '</td>';
             row += '<td>' + birthday + '</td>';
             row += "<td><button type='button' name='delete' class='deleteButton btn' value='" + id + "'>Delete</button></td>";
+            row += "<td><button type='button' name='edit' class='editButton btn' value='" + id + "'>Edit</button></td>";
             row += '</tr>';
             $('#datatable tbody').append(row);
         }
         var buttons = $(".deleteButton");
         buttons.on("click", deleteItem);
+
+        var buttons = $(".editButton");
+        buttons.on("click", editItem);
 
         console.log("Done");
     })
@@ -57,6 +60,12 @@ function deleteItem(e) {
     })
 }
 
+function editItem(e) {
+    console.debug("Edit");
+    console.debug(e.target.value);
+    showDialogEdit(e);
+}
+
 // This make the form show up when Add Item is clicked
 function showDialogAdd() {
 
@@ -72,6 +81,50 @@ function showDialogAdd() {
     $('#email').val("");
     $('#phone').val("");
     $('#birthday').val("");
+
+    // Remove style for outline of form field
+    $('#firstNameDiv').removeClass("has-error");
+    $('#firstNameGlyph').removeClass("glyphicon-remove");
+    $('#firstNameDiv').removeClass("has-success");
+    $('#firstNameGlyph').removeClass("glyphicon-ok");
+    $('#lastNameDiv').removeClass("has-error");
+    $('#lastNameGlyph').removeClass("glyphicon-remove");
+    $('#lastNameDiv').removeClass("has-success");
+    $('#lastNameGlyph').removeClass("glyphicon-ok");
+    $('#emailDiv').removeClass("has-error");
+    $('#emailGlyph').removeClass("glyphicon-remove");
+    $('#emailDiv').removeClass("has-success");
+    $('#emailGlyph').removeClass("glyphicon-ok");
+    $('#phoneDiv').removeClass("has-error");
+    $('#phoneGlyph').removeClass("glyphicon-remove");
+    $('#phoneDiv').removeClass("has-success");
+    $('#phoneGlyph').removeClass("glyphicon-ok");
+    $('#birthdayDiv').removeClass("has-error");
+    $('#birthdayGlyph').removeClass("glyphicon-remove");
+    $('#birthdayDiv').removeClass("has-success");
+    $('#birthdayGlyph').removeClass("glyphicon-ok");
+
+    // Show the hidden dialog
+    $('#myModal').modal('show');
+}
+
+function showDialogEdit(e) {
+
+    console.log("Opening edit item dialog");
+
+    var id = e.target.value;
+    var firstName = e.target.parentNode.parentNode.querySelectorAll("td")[1].innerHTML;
+    var lastName = e.target.parentNode.parentNode.querySelectorAll("td")[2].innerHTML;
+    var email = e.target.parentNode.parentNode.querySelectorAll("td")[3].innerHTML;
+    var phone = e.target.parentNode.parentNode.querySelectorAll("td")[4].innerHTML;
+    var birthday = e.target.parentNode.parentNode.querySelectorAll("td")[5].innerHTML;
+
+    $('#id').val(id);
+    $('#firstName').val(firstName);
+    $('#lastName').val(lastName);
+    $('#email').val(email);
+    $('#phone').val(phone);
+    $('#birthday').val(birthday);
 
     // Remove style for outline of form field
     $('#firstNameDiv').removeClass("has-error");
@@ -224,7 +277,7 @@ function validation() {
     }
 
     var phoneValidate = $('#phone').val();
-    var phonereg = /^[0-9]{10}$/;
+    var phonereg = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
 
     if (phonereg.test(phoneValidate)) {
         // Set style for outline of form field

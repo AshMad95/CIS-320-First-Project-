@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by ashtyne.madsen on 3/2/2017.
+ * Created by ashtyne.madsen on 3/2/2017
  */
 @WebServlet(name = "NameListDelete")
 public class NameListDelete extends HttpServlet {
