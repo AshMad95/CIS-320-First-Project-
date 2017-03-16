@@ -21,6 +21,7 @@ function updateTable() {
             var lastName = json_result[i].last;
             var email = json_result[i].email;
             var phone = json_result[i].phone;
+            var phoneDash = phone.substr(0,3) + '-' + phone.substr(3,3) + '-' + phone.substr(6,4);
             var birthday = json_result[i].birthday;
 
             var row ='<tr>';
@@ -117,6 +118,7 @@ function showDialogEdit(e) {
     var lastName = e.target.parentNode.parentNode.querySelectorAll("td")[2].innerHTML;
     var email = e.target.parentNode.parentNode.querySelectorAll("td")[3].innerHTML;
     var phone = e.target.parentNode.parentNode.querySelectorAll("td")[4].innerHTML;
+    phone = phone.split("-").join("")
     var birthday = e.target.parentNode.parentNode.querySelectorAll("td")[5].innerHTML;
 
     $('#id').val(id);
@@ -125,6 +127,8 @@ function showDialogEdit(e) {
     $('#email').val(email);
     $('#phone').val(phone);
     $('#birthday').val(birthday);
+
+    console.log(id);
 
     // Remove style for outline of form field
     $('#firstNameDiv').removeClass("has-error");
@@ -157,12 +161,13 @@ function jqueryPostButtonAction() {
     if (valid_form == true) {
         console.log(valid_form);
         var url = "api/name_list_edit";
-        var firstNameValue = $("#firstName").val()
-        var lastNameValue = $("#lastName").val()
-        var emailValue = $("#email").val()
-        var phoneValue = $("#phone").val()
-        var birthdayValue = $("#birthday").val()
-        var dataToServer = {firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
+        var idValue = $("#id").val();
+        var firstNameValue = $("#firstName").val();
+        var lastNameValue = $("#lastName").val();
+        var emailValue = $("#email").val();
+        var phoneValue = $("#phone").val();
+        var birthdayValue = $("#birthday").val();
+        var dataToServer = {id: idValue, firstName: firstNameValue, lastName: lastNameValue, email: emailValue, phone: phoneValue, birthday:birthdayValue };
 
         $.post(url, dataToServer, function (dataFromServer) {
             console.log("Finished calling edit servlet.");
@@ -277,7 +282,7 @@ function validation() {
     }
 
     var phoneValidate = $('#phone').val();
-    var phonereg = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    var phonereg = /^[0-9]{10}$/;
 
     if (phonereg.test(phoneValidate)) {
         // Set style for outline of form field
