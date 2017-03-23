@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -33,18 +34,35 @@
                 <li class="active"><a href="index.html">Home</a></li>
                 <li><a href="javascript_assignment.html">Javascript Assignment</a></li>
                 <li><a href="test_javascript.html">Test Javascript</a></li>
-                <li><a href="api/name_list_get">Name List JSON</a></li>
                 <li><a href="name_list.html">Name List</a></li>
-                <li><a href="login.html">Login</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Ashtyne Madsen's Index Page for CIS 320 Work</h1>
+    <h1>Session Demo</h1>
+    <h2>Set Session</h2>
 
-    <p>Hi</p>
+    <div>
+        <label for"sessionValue">Login ID</label>
+        <input type="text" id="sessionValue" placeholder="Session Value">
+    </div>
+    <label for="setSessionJava">Back-End Java SetSession</label>
+    <button id="setSessionJava">Go</button><br />
+
+    <h2>Clear Session</h2>
+    <button id="invalidateSession">Invalidate Session</button>
+
+    <h2>Get Session</h2>
+    <label for="getSessionJava">Back-End Java GetSession</label>
+    <button id="getSessionJava">Go</button><br />
+
+    <pre id="getSessionResult">
+    </pre>
+
+    <br />
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

@@ -58,7 +58,7 @@ public class NameListEdit extends HttpServlet {
         Matcher emailM = emailValidationPattern.matcher(email);
         Matcher phoneM = phoneValidationPattern.matcher(phone);
         Matcher birthdayM = birthdayValidationPattern.matcher(birthday);
-        if (id == null) {
+        if (id == null || id.equals("")) {
             if (firstM.find() && lastM.find() && emailM.find() && phoneM.find() && birthdayM.find()) {
                 out.println("Passed validation");
                 Person person = new Person();
