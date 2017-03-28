@@ -9,19 +9,18 @@ import java.io.PrintWriter;
 /**
  * Created by ashtyne.madsen on 3/23/2017
  */
-@WebServlet(name = "SetSessionServlet")
+@WebServlet(name = "SetLoginServlet")
 public class SetLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
 
-        String sessionKey = request.getParameter("sessionKey");
-        String sessionValue = request.getParameter("sessionValue");
+        String loginID = request.getParameter("loginID");
 
-        HttpSession session = request.getSession();
-        session.setAttribute(sessionKey, sessionValue);
+        HttpSession login = request.getSession();
+        login.setAttribute("loginID", loginID);
 
-        out.println("Done setting the session variable");
+        out.println("Done setting the login variable");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

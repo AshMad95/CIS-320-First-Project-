@@ -35,37 +35,43 @@
                 <li><a href="javascript_assignment.html">Javascript Assignment</a></li>
                 <li><a href="test_javascript.html">Test Javascript</a></li>
                 <li><a href="name_list.html">Name List</a></li>
+                <li><a href="form_demo.html">Form Demo</a></li>
+                <li><a href="cookie_demo.html">Cookie Demo</a></li>
+                <li><a href="session_demo.html">Session Demo</a></li>
+
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Session Demo</h1>
-    <h2>Set Session</h2>
+    <h1>Login Demo</h1>
+    <h2>Login</h2>
 
     <div>
-        <label for"sessionValue">Login ID</label>
-        <input type="text" id="sessionValue" placeholder="Session Value">
+        <input type="text" id="loginID" placeholder="Login ID">
     </div>
-    <label for="setSessionJava">Back-End Java SetSession</label>
-    <button id="setSessionJava">Go</button><br />
+    <label for="setLoginJava">Login</label>
+    <button id="setLoginJava">Go</button><br />
 
-    <h2>Clear Session</h2>
-    <button id="invalidateSession">Invalidate Session</button>
+    <div id="logoutSection">
+    <h2>Logout</h2>
+    <button id="logout">Logout</button>
+    </div>
 
-    <h2>Get Session</h2>
-    <label for="getSessionJava">Back-End Java GetSession</label>
-    <button id="getSessionJava">Go</button><br />
+    <h2>Welcome!</h2>
+    <label for="getLoginJava">Get Login Information</label>
+    <button id="getLoginJava">Go</button><br />
 
-    <pre id="getSessionResult">
-    </pre>
+    <p id="getLoginResult">
+    </p>
 
     <br />
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/login.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

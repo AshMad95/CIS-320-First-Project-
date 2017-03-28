@@ -53,4 +53,14 @@
         <url-pattern>/api/set_login_servlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>InvalidateLoginServlet</servlet-name>
+        <servlet-class>edu.simpson.madsen.InvalidateLoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>InvalidateLoginServlet</servlet-name>
+        <url-pattern>/api/invalidate_login_servlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -2,49 +2,49 @@
  * Created by ashtyne.madsen on 3/23/2017
  */
 
-function invalidateSessionButton() {
+function logout() {
 
-    var url = "api/invalidate_session_servlet";
+    var url = "api/invalidate_login_servlet";
 
     $.post(url, null, function (dataFromServer) {
-        console.log("Finished calling servlet.");
-        console.log(dataFromServer);
+         console.log("Finished calling logout servlet.");
+         console.log(dataFromServer);
+         getLoginJava();
     });
 }
 
-function getSessionJava() {
+function getLoginJava() {
 
     var url = "api/get_login_servlet";
 
     $.post(url, null, function (dataFromServer) {
-        console.log("Finished calling servlet.");
+        console.log("Finished calling get login servlet.");
         console.log(dataFromServer);
-        $('#getSessionResult').html(dataFromServer)
+        $('#getLoginResult').html(dataFromServer)
     });
 }
 
-function setSessionJava() {
+function setLoginJava() {
 
     var url = "api/set_login_servlet";
 
-    var sessionKey = "login_id";
-    var sessionValue = $("#sessionValue").val();
+    var loginKey = "loginID"
+    var loginID = $("#loginID").val();
 
-    var dataToServer = {sessionKey : sessionKey, sessionValue : sessionValue};
+    var dataToServer = {loginKey : loginKey, loginID : loginID};
 
     $.post(url, dataToServer, function (dataFromServer) {
-        console.log("Finished calling servlet.");
+        console.log("Finished calling set login servlet.");
         console.log(dataFromServer);
-        $("#sessionKey").val("");
-        $("#sessionValue").val("");
+        $("#loginID").val("");
+        getLoginJava();
     });
 }
 
-button = $('#getSessionJava');
-button.on("click", getSessionJava);
+getLoginJava();
 
-button = $('#setSessionJava');
-button.on("click", setSessionJava);
+button = $('#setLoginJava');
+button.on("click", setLoginJava);
 
-button = $('#invalidateSession');
-button.on("click", invalidateSessionButton);
+button = $('#logout');
+button.on("click", logout);
