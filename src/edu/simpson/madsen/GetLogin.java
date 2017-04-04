@@ -22,7 +22,7 @@ public class GetLogin extends HttpServlet {
 
         String loginID = (String)login.getAttribute("loginID");
 
-        out.println("You are logged in as '" + loginID + "'.");
+        out.println(loginID);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

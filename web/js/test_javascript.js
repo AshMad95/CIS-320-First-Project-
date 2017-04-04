@@ -10,7 +10,7 @@ for(var i = 0; i < paragraphs.length; i++) {
     console.log(paragraphText);
 }
 
-function myUpdateFunction(event) {
+function myUpdateFunction() {
     var fieldValue = $('#myTextField').val();
     console.log(fieldValue);
     $("#tableName tbody").append("<tr><td>" + fieldValue + "</td></tr>");
@@ -19,7 +19,7 @@ function myUpdateFunction(event) {
 var formButton1 = $('#button1');
 formButton1.on("click", myUpdateFunction);
 
-function hideFunction(event) {
+function hideFunction() {
     $("#hideme").hide(500);
 }
 

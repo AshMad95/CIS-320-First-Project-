@@ -19,8 +19,19 @@ function getLoginJava() {
 
     $.post(url, null, function (dataFromServer) {
         console.log("Finished calling get login servlet.");
-        console.log(dataFromServer);
-        $('#getLoginResult').html(dataFromServer)
+        console.log("DataFromServer: " + dataFromServer);
+        $('#getLoginResult').text("You are logged in as: '" + dataFromServer + "'.");
+        var data = dataFromServer.trim();
+        if (data === 'null') {
+            $("#logoutSection").hide();
+            console.log("login null")
+        }
+        else {
+            $("#logoutSection").show();
+            console.log("login")
+        }
+        //See if data from server === null trim null
+        //.hide or .show from earlier this semester
     });
 }
 
@@ -28,7 +39,7 @@ function setLoginJava() {
 
     var url = "api/set_login_servlet";
 
-    var loginKey = "loginID"
+    var loginKey = "loginID";
     var loginID = $("#loginID").val();
 
     var dataToServer = {loginKey : loginKey, loginID : loginID};
